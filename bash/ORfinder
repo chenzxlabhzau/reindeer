@@ -1,0 +1,44 @@
+###finder reindeer ORgene
+###shimw
+###reference https://github.com/patelhardip/koalaor
+
+
+mkdir -p /home/mwshi/project/xunlu/ORfinder
+mkdir -p /home/mwshi/project/xunlu/ORfinder/reindeer
+echo 'nhmmer --cpu 8 -o /dev/null --tblout /home/mwshi/project/xunlu/ORfinder/reindeer/nhmmer.output /home/mwshi/tools/koalaor/referencedata/ORGenes.nt.hmm /home/lchen/nmg/02_genome_assembly/xunlu.fa' > /home/mwshi/project/xunlu/bashcode/000_ORfinder.pbs
+echo 'perl /home/mwshi/tools/koalaor/extracthmmerhits.pl /home/lchen/nmg/02_genome_assembly/xunlu.fa /home/mwshi/project/xunlu/ORfinder/reindeer/genome.orcandidates /home/mwshi/project/xunlu/ORfinder/reindeer/nhmmer.output'>>/home/mwshi/project/xunlu/bashcode/000_ORfinder.pbs
+echo 'cd /home/mwshi/project/xunlu/ORfinder/reindeer/' >>/home/mwshi/project/xunlu/bashcode/000_ORfinder.pbs
+echo 'fasty36 -b 1 -z 11 -Q -d 1 -m "F10 fasty.output" genome.orcandidates /home/mwshi/tools/koalaor/referencedata/ORGenes.aa.fa >/dev/null' >>/home/mwshi/project/xunlu/bashcode/000_ORfinder.pbs
+echo 'perl /home/mwshi/tools/koalaor/getORORFs.pl fasty.output genome.orcandidates genome.output.OR /home/mwshi/tools/koalaor/referencedata/class_a_rhodopsin_family.aa.hmm 1 9870' >>/home/mwshi/project/xunlu/bashcode/000_ORfinder.pbs
+
+qsub -q batch -V -l nodes=1:ppn=8 /home/mwshi/project/xunlu/bashcode/000_ORfinder.pbs
+
+
+mkdir -p /home/mwshi/project/xunlu/ORfinder/cow
+rm /home/mwshi/project/xunlu/bashcode/000_ORfinder_cow.pbs
+echo 'nhmmer --cpu 8 -o /dev/null --tblout /home/mwshi/project/xunlu/ORfinder/cow/nhmmer.output /home/mwshi/tools/koalaor/referencedata/ORGenes.nt.hmm /home/mwshi/project/xunlu/cow/Bos_taurus.ARS-UCD1.2.dna.toplevel.fa' > /home/mwshi/project/xunlu/bashcode/000_ORfinder_cow.pbs
+echo 'perl /home/mwshi/tools/koalaor/extracthmmerhits.pl /home/mwshi/project/xunlu/cow/Bos_taurus.ARS-UCD1.2.dna.toplevel.fa /home/mwshi/project/xunlu/ORfinder/cow/genome.orcandidates /home/mwshi/project/xunlu/ORfinder/cow/nhmmer.output'>>/home/mwshi/project/xunlu/bashcode/000_ORfinder_cow.pbs
+echo 'cd /home/mwshi/project/xunlu/ORfinder/cow/' >>/home/mwshi/project/xunlu/bashcode/000_ORfinder_cow.pbs
+echo 'fasty36 -b 1 -z 11 -Q -d 1 -m "F10 fasty.output" genome.orcandidates /home/mwshi/tools/koalaor/referencedata/ORGenes.aa.fa >/dev/null' >>/home/mwshi/project/xunlu/bashcode/000_ORfinder_cow.pbs
+echo 'perl /home/mwshi/tools/koalaor/getORORFs.pl fasty.output genome.orcandidates genome.output.OR /home/mwshi/tools/koalaor/referencedata/class_a_rhodopsin_family.aa.hmm 1 9870' >>/home/mwshi/project/xunlu/bashcode/000_ORfinder_cow.pbs
+qsub -q batch -V -l nodes=1:ppn=8 /home/mwshi/project/xunlu/bashcode/000_ORfinder_cow.pbs
+
+
+mkdir -p /home/mwshi/project/xunlu/ORfinder/human
+rm /home/mwshi/project/xunlu/bashcode/000_ORfinder_human.pbs
+echo 'nhmmer --cpu 8 -o /dev/null --tblout /home/mwshi/project/xunlu/ORfinder/human/nhmmer.output /home/mwshi/tools/koalaor/referencedata/ORGenes.nt.hmm /home/mwshi/project/genome/Homo_sapiens.GRCh38.dna.primary_assembly.fa' > /home/mwshi/project/xunlu/bashcode/000_ORfinder_human.pbs
+echo 'perl /home/mwshi/tools/koalaor/extracthmmerhits.pl /home/mwshi/project/genome/Homo_sapiens.GRCh38.dna.primary_assembly.fa /home/mwshi/project/xunlu/ORfinder/human/genome.orcandidates /home/mwshi/project/xunlu/ORfinder/human/nhmmer.output'>>/home/mwshi/project/xunlu/bashcode/000_ORfinder_human.pbs
+echo 'cd /home/mwshi/project/xunlu/ORfinder/human/' >>/home/mwshi/project/xunlu/bashcode/000_ORfinder_human.pbs
+echo 'fasty36 -b 1 -z 11 -Q -d 1 -m "F10 fasty.output" genome.orcandidates /home/mwshi/tools/koalaor/referencedata/ORGenes.aa.fa >/dev/null' >>/home/mwshi/project/xunlu/bashcode/000_ORfinder_human.pbs
+echo 'perl /home/mwshi/tools/koalaor/getORORFs.pl fasty.output genome.orcandidates genome.output.OR /home/mwshi/tools/koalaor/referencedata/class_a_rhodopsin_family.aa.hmm 1 9870' >>/home/mwshi/project/xunlu/bashcode/000_ORfinder_human.pbs
+qsub -q batch -V -l nodes=1:ppn=8 /home/mwshi/project/xunlu/bashcode/000_ORfinder_human.pbs
+
+mkdir -p /home/mwshi/project/xunlu/ORfinder/mouse
+rm /home/mwshi/project/xunlu/bashcode/000_ORfinder_mouse.pbs
+echo 'nhmmer --cpu 8 -o /dev/null --tblout /home/mwshi/project/xunlu/ORfinder/mouse/nhmmer.output /home/mwshi/tools/koalaor/referencedata/ORGenes.nt.hmm /home/mwshi/project/xunlu/mouse/Mus_musculus.GRCm38.dna.primary_assembly.fa' > /home/mwshi/project/xunlu/bashcode/000_ORfinder_mouse.pbs
+echo 'perl /home/mwshi/tools/koalaor/extracthmmerhits.pl /home/mwshi/project/xunlu/mouse/Mus_musculus.GRCm38.dna.primary_assembly.fa /home/mwshi/project/xunlu/ORfinder/mouse/genome.orcandidates /home/mwshi/project/xunlu/ORfinder/mouse/nhmmer.output'>>/home/mwshi/project/xunlu/bashcode/000_ORfinder_mouse.pbs
+echo 'cd /home/mwshi/project/xunlu/ORfinder/mouse/' >>/home/mwshi/project/xunlu/bashcode/000_ORfinder_mouse.pbs
+echo 'fasty36 -b 1 -z 11 -Q -d 1 -m "F10 fasty.output" genome.orcandidates /home/mwshi/tools/koalaor/referencedata/ORGenes.aa.fa >/dev/null' >>/home/mwshi/project/xunlu/bashcode/000_ORfinder_mouse.pbs
+echo 'perl /home/mwshi/tools/koalaor/getORORFs.pl fasty.output genome.orcandidates genome.output.OR /home/mwshi/tools/koalaor/referencedata/class_a_rhodopsin_family.aa.hmm 1 9870' >>/home/mwshi/project/xunlu/bashcode/000_ORfinder_mouse.pbs
+qsub -q batch -V -l nodes=1:ppn=8 /home/mwshi/project/xunlu/bashcode/000_ORfinder_mouse.pbs
+
