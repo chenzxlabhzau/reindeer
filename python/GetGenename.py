@@ -2,15 +2,27 @@
 ###shimw
 import os
 genelist = []
-with open("/home/mwshi/project/xunlu/OR.txt" , "r") as f:
+genemap = {}
+with open("/home/mwshi/project/xunlu/annotation.txt" , "r") as f:
     for line in f:
         i = line.strip().split("\t")
-        # if i[5].split(" ")[5].split("=")[0]=="GN":
-        #     gene_name = i[5].split(" ")[5].split("=")[1]
-        # else:
-        #     print(i)
-        for item in i:
-            if i[5].startswith("Olfactory"):
+        id = i[0]
+        if i[8]!="-":
+            symbol = i[7]
+        else:
+            symbol = "-"
+        genemap[id] = symbol.strip('"')
+        genelist.append(symbol)
+kkk = []
+w = open("/home/mwshi/project/xunlu/id2symbol.txt",'w')
+for i in genemap.keys():
+    if len(genemap[i].split())==1:
+        w.write(i+'\t'+genemap[i]+"\n")
+
+w.close()
+
+
+
 
 
 
